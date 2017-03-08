@@ -1,0 +1,11 @@
+*.bs
+*.o
+*.tar*
+*~
+/.build
+/.perl-version
+/MYMETA.*
+/WebService-BitbucketServer-*
+/blib
+/local*
+/pm_to_blib
