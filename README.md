@@ -4,7 +4,7 @@ WebService::BitbucketServer - Bindings for Bitbucket Server REST APIs
 
 # VERSION
 
-version 0.600
+version 0.601
 
 # SYNOPSIS
 
@@ -187,10 +187,6 @@ patch to an existing test-file that illustrates the bug or desired
 feature.
 
 # AUTHOR
-
-Charles McGarvey <ccm@cpan.org>
-
-# CONTRIBUTOR
 
 Charles McGarvey <chazmcgarvey@brokenzipper.com>
 
