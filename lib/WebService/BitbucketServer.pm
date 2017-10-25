@@ -5,7 +5,7 @@ package WebService::BitbucketServer;
 use warnings;
 use strict;
 
-our $VERSION = '0.600'; # VERSION
+our $VERSION = '0.601'; # VERSION
 
 use HTTP::AnyUA::Util qw(www_form_urlencode);
 use HTTP::AnyUA;
@@ -304,7 +304,7 @@ WebService::BitbucketServer - Bindings for Bitbucket Server REST APIs
 
 =head1 VERSION
 
-version 0.600
+version 0.601
 
 =head1 SYNOPSIS
 
@@ -505,12 +505,6 @@ patch to an existing test-file that illustrates the bug or desired
 feature.
 
 =head1 AUTHOR
-
-Charles McGarvey <ccm@cpan.org>
-
-=head1 CONTRIBUTOR
-
-=for stopwords Charles McGarvey
 
 Charles McGarvey <chazmcgarvey@brokenzipper.com>
 

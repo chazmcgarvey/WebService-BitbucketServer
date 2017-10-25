@@ -14,7 +14,7 @@ install_share module => "WebService::BitbucketServer::Spec", "shares\/spec";
 
 my %WriteMakefileArgs = (
   "ABSTRACT" => "Bindings for Bitbucket Server REST APIs",
-  "AUTHOR" => "Charles McGarvey <ccm\@cpan.org>",
+  "AUTHOR" => "Charles McGarvey <chazmcgarvey\@brokenzipper.com>",
   "CONFIGURE_REQUIRES" => {
     "ExtUtils::MakeMaker" => 0,
     "File::ShareDir::Install" => "0.06"
@@ -50,7 +50,7 @@ my %WriteMakefileArgs = (
     "lib" => 0,
     "parent" => 0
   },
-  "VERSION" => "0.600",
+  "VERSION" => "0.601",
   "test" => {
     "TESTS" => "t/*.t"
   }

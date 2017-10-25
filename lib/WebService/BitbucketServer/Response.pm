@@ -5,7 +5,7 @@ package WebService::BitbucketServer::Response;
 use warnings;
 use strict;
 
-our $VERSION = '0.600'; # VERSION
+our $VERSION = '0.601'; # VERSION
 
 use Clone qw(clone);
 use Types::Standard qw(HashRef Object);
@@ -159,7 +159,7 @@ WebService::BitbucketServer::Response - A response object for Bitbucket Server R
 
 =head1 VERSION
 
-version 0.600
+version 0.601
 
 =head1 SYNOPSIS
 
@@ -337,7 +337,7 @@ feature.
 
 =head1 AUTHOR
 
-Charles McGarvey <ccm@cpan.org>
+Charles McGarvey <chazmcgarvey@brokenzipper.com>
 
 =head1 COPYRIGHT AND LICENSE
 

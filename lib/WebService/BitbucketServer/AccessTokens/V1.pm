@@ -6,7 +6,7 @@ package WebService::BitbucketServer::AccessTokens::V1;
 use warnings;
 use strict;
 
-our $VERSION = '0.600'; # VERSION
+our $VERSION = '0.601'; # VERSION
 
 use Moo;
 use namespace::clean;
@@ -97,7 +97,7 @@ WebService::BitbucketServer::AccessTokens::V1 - Bindings for a Bitbucket Server 
 
 =head1 VERSION
 
-version 0.600
+version 0.601
 
 =head1 SYNOPSIS
 
@@ -321,7 +321,7 @@ feature.
 
 =head1 AUTHOR
 
-Charles McGarvey <ccm@cpan.org>
+Charles McGarvey <chazmcgarvey@brokenzipper.com>
 
 =head1 COPYRIGHT AND LICENSE
 
