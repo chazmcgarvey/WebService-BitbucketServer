@@ -2733,7 +2733,7 @@ Update the project matching the B<<< projectKey >>> supplied in the resource pat
 To include a custom avatar for the updated project, the project definition should contain an additional attribute
 with the key C<<< avatar >>> and the value a data URI containing Base64-encoded image data. The URI should be
 in the following format:
-C<<< 
+C<<<
 data:(content type, e.g. image/png);base64,(data)
  >>>
 If the data is not Base64-encoded, or if a character set is defined in the URI, or the URI is otherwise invalid,
@@ -4238,7 +4238,7 @@ branch:  the branch on which the C<<< path >>> should be modified or created
 
 =item *
 
-content: the full content of the file at C<<< path >>> 
+content: the full content of the file at C<<< path >>>
 
 =item *
 
@@ -8679,7 +8679,7 @@ the configuration set for this repository's SCM type as set at the instance leve
 
 the default configuration for this repository's SCM type
 
-=over 4
+=back
 
     POST api/1.0/projects/{projectKey}/repos/{repositorySlug}/settings/pull-requests
 
