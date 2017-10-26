@@ -216,7 +216,7 @@ Get the L<WebService::BitbucketServer::GPG::V1> api.
 
 =attr jira
 
-Get the L<WebService::BitbucketServer::Jira::V1> api.
+Get the L<WebService::BitbucketServer::JIRA::V1> api.
 
 =attr ssh
 
