@@ -4,7 +4,7 @@ WebService::BitbucketServer - Bindings for Bitbucket Server REST APIs
 
 # VERSION
 
-version 0.601
+version 0.602
 
 # SYNOPSIS
 
