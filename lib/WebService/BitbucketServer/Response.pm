@@ -156,11 +156,11 @@ has json => (
     },
 );
 
-=attr is_success
+=method is_success
 
 Get whether or not the response is a success.
 
-=attr status
+=method status
 
 Get the HTTP status code.
 
@@ -169,7 +169,7 @@ Get the HTTP status code.
 sub is_success  { shift->raw->{success} }
 sub status      { shift->raw->{status}  }
 
-=attr error
+=method error
 
 Get the error message or structure if this response represents an error (i.e. L</is_success> is
 false), or undef if this response is not an error.
@@ -208,7 +208,7 @@ sub info    { shift->data(@_) }
 sub value   { shift->data(@_) }
 sub values  { shift->data(@_) }
 
-=attr is_paged
+=method is_paged
 
 Get whether or not the response is a page of values.
 
@@ -258,7 +258,8 @@ sub _build_page_info {
     $next_response = $response->next;
 
 Get the next page of results or undef if no more results. As with
-L<WebService::BitbucketServer/call>, the returned response may be a hashref or a L<Future>.
+L<WebService::BitbucketServer/call>, the returned response may be
+a L<WebService::BitbucketServer::Response> or a L<Future>.
 
 =cut
 

@@ -174,59 +174,59 @@ has no_security_warning => (
     default => sub { $ENV{PERL_WEBSERVICE_BITBUCKETSERVER_NO_SECURITY_WARNING} || 0 },
 );
 
-=attr core
+=method core
 
 Get the L<WebService::BitbucketServer::Core::V1> api.
 
-=attr access_tokens
+=method access_tokens
 
 Get the L<WebService::BitbucketServer::AccessTokens::V1> api.
 
-=attr audit
+=method audit
 
 Get the L<WebService::BitbucketServer::Audit::V1> api.
 
-=attr ref_restriction
+=method ref_restriction
 
 Get the L<WebService::BitbucketServer::RefRestriction::V2> api.
 
-=attr branch
+=method branch
 
 Get the L<WebService::BitbucketServer::Branch::V1> api.
 
-=attr build
+=method build
 
 Get the L<WebService::BitbucketServer::Build::V1> api.
 
-=attr comment_likes
+=method comment_likes
 
 Get the L<WebService::BitbucketServer::CommentLikes::V1> api.
 
-=attr default_reviewers
+=method default_reviewers
 
 Get the L<WebService::BitbucketServer::DefaultReviewers::V1> api.
 
-=attr git
+=method git
 
 Get the L<WebService::BitbucketServer::Git::V1> api.
 
-=attr gpg
+=method gpg
 
 Get the L<WebService::BitbucketServer::GPG::V1> api.
 
-=attr jira
+=method jira
 
 Get the L<WebService::BitbucketServer::JIRA::V1> api.
 
-=attr ssh
+=method ssh
 
 Get the L<WebService::BitbucketServer::SSH::V1> api.
 
-=attr mirroring_upstream
+=method mirroring_upstream
 
 Get the L<WebService::BitbucketServer::MirroringUpstream::V1> api.
 
-=attr repository_ref_sync
+=method repository_ref_sync
 
 Get the L<WebService::BitbucketServer::RepositoryRefSync::V1> api.
 
@@ -273,7 +273,8 @@ sub url {
 
     $response = $api->call(method => $method, url => $url, %options);
 
-Make a request to an API and get a L<response|WebService::BitbucketServer::Response>.
+Make a request to an API and get a L<response|WebService::BitbucketServer::Response> (or L<Future>
+if the user agent is non-blocking).
 
 =for :list
 * url - the endpoint URL, relative to L</url>
