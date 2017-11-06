@@ -4,7 +4,7 @@ WebService::BitbucketServer - Bindings for Bitbucket Server REST APIs
 
 # VERSION
 
-version 0.602
+version 0.603
 
 # SYNOPSIS
 
@@ -84,6 +84,14 @@ Get the [JSON](https://metacpan.org/pod/JSON) (or compatible) object used for en
 Get whether or not a warning will be issued when an insecure action takes place (such as sending
 credentials unencrypted). Defaults to false (i.e. will issue warning).
 
+# METHODS
+
+## new
+
+    $api = WebService::BitbucketServer->new(base_url => $base_url, %other_attributes);
+
+Create a new API context object. Provide ["ATTRIBUTES"](#attributes) to customize.
+
 ## core
 
 Get the [WebService::BitbucketServer::Core::V1](https://metacpan.org/pod/WebService::BitbucketServer::Core::V1) api.
@@ -126,7 +134,7 @@ Get the [WebService::BitbucketServer::GPG::V1](https://metacpan.org/pod/WebServi
 
 ## jira
 
-Get the [WebService::BitbucketServer::Jira::V1](https://metacpan.org/pod/WebService::BitbucketServer::Jira::V1) api.
+Get the [WebService::BitbucketServer::JIRA::V1](https://metacpan.org/pod/WebService::BitbucketServer::JIRA::V1) api.
 
 ## ssh
 
@@ -140,14 +148,6 @@ Get the [WebService::BitbucketServer::MirroringUpstream::V1](https://metacpan.or
 
 Get the [WebService::BitbucketServer::RepositoryRefSync::V1](https://metacpan.org/pod/WebService::BitbucketServer::RepositoryRefSync::V1) api.
 
-# METHODS
-
-## new
-
-    $api = WebService::BitbucketServer->new(base_url => $base_url, %other_attributes);
-
-Create a new API context object. Provide ["ATTRIBUTES"](#attributes) to customize.
-
 ## url
 
     $url = $api->url;
@@ -158,7 +158,8 @@ Get the URL of the APIs (a combination of ["base\_url"](#base_url) and ["path"](
 
     $response = $api->call(method => $method, url => $url, %options);
 
-Make a request to an API and get a [response](https://metacpan.org/pod/WebService::BitbucketServer::Response).
+Make a request to an API and get a [response](https://metacpan.org/pod/WebService::BitbucketServer::Response) (or [Future](https://metacpan.org/pod/Future)
+if the user agent is non-blocking).
 
 - url - the endpoint URL, relative to ["url"](#url)
 - method - the HTTP method
@@ -189,6 +190,10 @@ feature.
 # AUTHOR
 
 Charles McGarvey <chazmcgarvey@brokenzipper.com>
+
+# CONTRIBUTOR
+
+Camspi <amarus18@hotmail.com>
 
 # COPYRIGHT AND LICENSE
 
