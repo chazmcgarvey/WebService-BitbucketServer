@@ -381,7 +381,16 @@ END
 
     my %seen;
 
-    for my $endpoint (sort { $a->{path} cmp $b->{path} } @$wadl) {
+    my %method_order = (
+        POST    => 0,
+        GET     => 1,
+        PUT     => 2,
+        PATCH   => 3,
+        DELETE  => 4,
+    );
+
+    for my $endpoint (sort { $a->{path} cmp $b->{path} ||
+            ($method_order{$a->{method}} || 99) <=> ($method_order{$a->{method}} || 99) } @$wadl) {
         # fix paths that have 2+ slash separators
         $endpoint->{path} =~ s!/+!/!g;
 
