@@ -400,6 +400,13 @@ sub write_api_packages {
         $self->_debug_log('Fetched WADL', $resp->{url});
 
         my $wadl = WebService::BitbucketServer::WADL::parse_wadl($resp->{content});
+
+        my $api_info = api_info($wadl);
+        if (!$api_info) {
+            warn "Missing API info: $resp->{url}\n";
+            return;
+        }
+
         my ($package_code, $package) = WebService::BitbucketServer::WADL::generate_package($wadl, %$args, base => __PACKAGE__);
 
         require File::Path;
@@ -417,12 +424,6 @@ sub write_api_packages {
         close($fh);
 
         my $submap = WebService::BitbucketServer::WADL::generate_submap($wadl, %$args);
-
-        my $api_info = api_info($wadl);
-        if (!$api_info) {
-            warn "Missing API info: $resp->{url}\n";
-            return;
-        }
 
         my $filename = "submap_$api_info->{id}.pl";
 

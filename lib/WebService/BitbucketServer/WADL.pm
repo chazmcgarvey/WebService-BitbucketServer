@@ -14,6 +14,8 @@ use namespace::clean -except => [qw(import)];
 our @EXPORT_OK = qw(parse_wadl generate_package generate_submap);
 
 
+sub _croak { require Carp; Carp::croak(@_) }
+
 =func parse_wadl
 
     $api_spec = parse_wadl($wadl);
@@ -194,9 +196,9 @@ names.
 sub generate_submap {
     my $wadl = shift;
 
-    my $api_info    = api_info($wadl);
+    my $api_info    = api_info($wadl) or _croak('Cannot get API info from WADL');
+    my $api         = package_name($wadl) or _croak('Cannot determine package name from WADL');
     my $method      = $api_info->{id};
-    my $api         = package_name($wadl);
 
     my $out;
     $out .= "# Map endpoints to subroutine names in $api.\nuse strict;\n{\n";
@@ -253,9 +255,9 @@ sub generate_package {
     my $wadl = shift;
     my $args = @_ == 1 ? shift : {@_};
 
-    my $api_info    = api_info($wadl);
+    my $api_info    = api_info($wadl) or _croak('Cannot get API info from WADL');
+    my $api         = package_name($wadl) or _croak('Cannot determine package name from WADL');
     my $method      = $api_info->{id};
-    my $api         = package_name($wadl);
     my $package     = $args->{package} || "$args->{base}::${api}";
     my $abstract    = $args->{abstract} || 'Bindings for a Bitbucket Server REST API';
     my $doc_url     = $args->{documentation_url} || documentation_url($wadl->[0], 'html', $args->{version});

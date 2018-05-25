@@ -102,7 +102,7 @@ sub api_info {
 
     my $namespace = ref($endpoint) eq 'HASH' ? _endpoint_namespace($endpoint) : $endpoint;
 
-    return $API{$namespace};
+    return $API{$namespace || ''};
 }
 
 sub _endpoint_namespace {
