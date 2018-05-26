@@ -13,7 +13,7 @@ package WebService::BitbucketServer::GPG::V1;
 
 =head1 DESCRIPTION
 
-This is a Bitbucket Server REST API for L<GPG::V1|https://developer.atlassian.com/static/rest/bitbucket-server/5.5.0/bitbucket-gpg-rest.html>.
+This is a Bitbucket Server REST API for L<GPG::V1|https://developer.atlassian.com/static/rest/bitbucket-server/5.8.3/bitbucket-gpg-rest.html>.
 
 Original API documentation created by and copyright Atlassian.
 

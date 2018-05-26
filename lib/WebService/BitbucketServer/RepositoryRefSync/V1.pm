@@ -13,7 +13,7 @@ package WebService::BitbucketServer::RepositoryRefSync::V1;
 
 =head1 DESCRIPTION
 
-This is a Bitbucket Server REST API for L<RepositoryRefSync::V1|https://developer.atlassian.com/static/rest/bitbucket-server/5.5.0/bitbucket-repository-ref-sync-rest.html>.
+This is a Bitbucket Server REST API for L<RepositoryRefSync::V1|https://developer.atlassian.com/static/rest/bitbucket-server/5.10.0/bitbucket-repository-ref-sync-rest.html>.
 
 Original API documentation created by and copyright Atlassian.
 

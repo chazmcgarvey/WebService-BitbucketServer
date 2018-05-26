@@ -13,7 +13,7 @@ package WebService::BitbucketServer::AccessTokens::V1;
 
 =head1 DESCRIPTION
 
-This is a Bitbucket Server REST API for L<AccessTokens::V1|https://developer.atlassian.com/static/rest/bitbucket-server/5.5.0/bitbucket-access-tokens-rest.html>.
+This is a Bitbucket Server REST API for L<AccessTokens::V1|https://developer.atlassian.com/static/rest/bitbucket-server/5.10.0/bitbucket-access-tokens-rest.html>.
 
 Original API documentation created by and copyright Atlassian.
 
@@ -71,41 +71,6 @@ sub _get_path_parameter {
     _croak("Missing required parameter $name");
 }
 
-=head2 get_tokens
-
-Get all access tokens associated with the given user
-
-    GET access-tokens/1.0/users/{userSlug}
-
-Responses:
-
-=over 4
-
-=item * C<<< 200 >>> - accessToken, type: application/json
-
-A response containing a page of access tokens and associated details
-
-=item * C<<< 401 >>> - errors, type: application/json
-
-The currently authenticated user is not permitted to get access tokens on
-behalf of this user or authentication failed
-
-=item * C<<< 404 >>> - errors, type: application/json
-
-The specified user does not exist
-
-=back
-
-=cut
-
-sub get_tokens {
-    my $self = shift;
-    my $args = {@_ == 1 ? %{$_[0]} : @_};
-    my $url  = _get_url('access-tokens/1.0/users/{userSlug}', $args);
-    my $data = (exists $args->{data} && $args->{data}) || (%$args && $args);
-    $self->context->call(method => 'GET', url => $url, $data ? (data => $data) : ());
-}
-
 =head2 create_token
 
 Create an access token for the user according to the given request
@@ -161,11 +126,47 @@ sub create_token {
     $self->context->call(method => 'PUT', url => $url, $data ? (data => $data) : ());
 }
 
-=head2 delete_token
+=head2 get_tokens
 
-Delete an access token for the user according to the given ID
+Get all access tokens associated with the given user
 
-    DELETE access-tokens/1.0/users/{userSlug}/{tokenId}
+    GET access-tokens/1.0/users/{userSlug}
+
+Responses:
+
+=over 4
+
+=item * C<<< 200 >>> - accessToken, type: application/json
+
+A response containing a page of access tokens and associated details
+
+=item * C<<< 401 >>> - errors, type: application/json
+
+The currently authenticated user is not permitted to get access tokens on
+behalf of this user or authentication failed
+
+=item * C<<< 404 >>> - errors, type: application/json
+
+The specified user does not exist
+
+=back
+
+=cut
+
+sub get_tokens {
+    my $self = shift;
+    my $args = {@_ == 1 ? %{$_[0]} : @_};
+    my $url  = _get_url('access-tokens/1.0/users/{userSlug}', $args);
+    my $data = (exists $args->{data} && $args->{data}) || (%$args && $args);
+    $self->context->call(method => 'GET', url => $url, $data ? (data => $data) : ());
+}
+
+=head2 update_token
+
+Modify an access token for the user according to the given request. Any fields not specified
+will not be altered
+
+    POST access-tokens/1.0/users/{userSlug}/{tokenId}
 
 Parameters:
 
@@ -173,35 +174,37 @@ Parameters:
 
 =item * C<<< tokenId >>> - string, default: none
 
+the ID of the token
+
 =back
 
 Responses:
 
 =over 4
 
+=item * C<<< 200 >>> - accessToken, type: application/json
+
+A response containing the updated access token and associated details
+
+=item * C<<< 400 >>> - errors, type: application/json
+
+One of the provided permission levels are unknown
+
 =item * C<<< 401 >>> - errors, type: application/json
 
-The currently authenticated user is not permitted to delete an access token on
+The currently authenticated user is not permitted to update an access token on
 behalf of this user or authentication failed
-
-=item * C<<< 204 >>> - data, type: application/json
-
-an empty response indicating that the token has been deleted
-
-=item * C<<< 404 >>> - errors, type: application/json
-
-The specified user or token does not exist
 
 =back
 
 =cut
 
-sub delete_token {
+sub update_token {
     my $self = shift;
     my $args = {@_ == 1 ? %{$_[0]} : @_};
     my $url  = _get_url('access-tokens/1.0/users/{userSlug}/{tokenId}', $args);
     my $data = (exists $args->{data} && $args->{data}) || (%$args && $args);
-    $self->context->call(method => 'DELETE', url => $url, $data ? (data => $data) : ());
+    $self->context->call(method => 'POST', url => $url, $data ? (data => $data) : ());
 }
 
 =head2 get_token
@@ -215,6 +218,8 @@ Parameters:
 =over 4
 
 =item * C<<< tokenId >>> - string, default: none
+
+the ID of the token
 
 =back
 
@@ -247,12 +252,11 @@ sub get_token {
     $self->context->call(method => 'GET', url => $url, $data ? (data => $data) : ());
 }
 
-=head2 update_token
+=head2 delete_token
 
-Modify an access token for the user according to the given request. Any fields not specified
-will not be altered
+Delete an access token for the user according to the given ID
 
-    POST access-tokens/1.0/users/{userSlug}/{tokenId}
+    DELETE access-tokens/1.0/users/{userSlug}/{tokenId}
 
 Parameters:
 
@@ -260,35 +264,37 @@ Parameters:
 
 =item * C<<< tokenId >>> - string, default: none
 
+the ID of the token
+
 =back
 
 Responses:
 
 =over 4
 
-=item * C<<< 200 >>> - accessToken, type: application/json
-
-A response containing the updated access token and associated details
-
-=item * C<<< 400 >>> - errors, type: application/json
-
-One of the provided permission levels are unknown
-
 =item * C<<< 401 >>> - errors, type: application/json
 
-The currently authenticated user is not permitted to update an access token on
+The currently authenticated user is not permitted to delete an access token on
 behalf of this user or authentication failed
+
+=item * C<<< 204 >>> - data, type: application/json
+
+an empty response indicating that the token has been deleted
+
+=item * C<<< 404 >>> - errors, type: application/json
+
+The specified user or token does not exist
 
 =back
 
 =cut
 
-sub update_token {
+sub delete_token {
     my $self = shift;
     my $args = {@_ == 1 ? %{$_[0]} : @_};
     my $url  = _get_url('access-tokens/1.0/users/{userSlug}/{tokenId}', $args);
     my $data = (exists $args->{data} && $args->{data}) || (%$args && $args);
-    $self->context->call(method => 'POST', url => $url, $data ? (data => $data) : ());
+    $self->context->call(method => 'DELETE', url => $url, $data ? (data => $data) : ());
 }
 
 =head1 SEE ALSO

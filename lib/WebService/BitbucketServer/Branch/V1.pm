@@ -13,7 +13,7 @@ package WebService::BitbucketServer::Branch::V1;
 
 =head1 DESCRIPTION
 
-This is a Bitbucket Server REST API for L<Branch::V1|https://developer.atlassian.com/static/rest/bitbucket-server/5.5.0/bitbucket-branch-rest.html>.
+This is a Bitbucket Server REST API for L<Branch::V1|https://developer.atlassian.com/static/rest/bitbucket-server/5.10.0/bitbucket-branch-rest.html>.
 
 Original API documentation created by and copyright Atlassian.
 
@@ -71,6 +71,48 @@ sub _get_path_parameter {
     _croak("Missing required parameter $name");
 }
 
+=head2 create_branch
+
+Creates a branch in the specified repository.
+
+The authenticated user must have an effective B<<< REPO_WRITE >>> permission to call this resource. If
+branch permissions are set up in the repository, the authenticated user must also have access to the branch name
+that is to be created.
+
+    POST branch-utils/1.0/projects/{projectKey}/repos/{repositorySlug}/branches
+
+Responses:
+
+=over 4
+
+=item * C<<< 201 >>> - data, type: application/json
+
+a JSON representation of the newly created branch
+
+=item * C<<< 400 >>> - errors, type: application/json
+
+the branch was not created because the request was invalid, e.g. the provided
+ref name already existed in the repository, or was not a valid ref name in the
+repository
+
+=item * C<<< 401 >>> - errors, type: application/json
+
+The currently authenticated user has insufficient permissions to create a
+branch. This could be due to insufficient repository permissions, or lack of
+branch permission for the provided ref name
+
+=back
+
+=cut
+
+sub create_branch {
+    my $self = shift;
+    my $args = {@_ == 1 ? %{$_[0]} : @_};
+    my $url  = _get_url('branch-utils/1.0/projects/{projectKey}/repos/{repositorySlug}/branches', $args);
+    my $data = (exists $args->{data} && $args->{data}) || (%$args && $args);
+    $self->context->call(method => 'POST', url => $url, $data ? (data => $data) : ());
+}
+
 =head2 delete_branch
 
 Deletes a branch in the specified repository.
@@ -119,48 +161,6 @@ sub delete_branch {
     my $url  = _get_url('branch-utils/1.0/projects/{projectKey}/repos/{repositorySlug}/branches', $args);
     my $data = (exists $args->{data} && $args->{data}) || (%$args && $args);
     $self->context->call(method => 'DELETE', url => $url, $data ? (data => $data) : ());
-}
-
-=head2 create_branch
-
-Creates a branch in the specified repository.
-
-The authenticated user must have an effective B<<< REPO_WRITE >>> permission to call this resource. If
-branch permissions are set up in the repository, the authenticated user must also have access to the branch name
-that is to be created.
-
-    POST branch-utils/1.0/projects/{projectKey}/repos/{repositorySlug}/branches
-
-Responses:
-
-=over 4
-
-=item * C<<< 201 >>> - data, type: application/json
-
-a JSON representation of the newly created branch
-
-=item * C<<< 400 >>> - errors, type: application/json
-
-the branch was not created because the request was invalid, e.g. the provided
-ref name already existed in the repository, or was not a valid ref name in the
-repository
-
-=item * C<<< 401 >>> - errors, type: application/json
-
-The currently authenticated user has insufficient permissions to create a
-branch. This could be due to insufficient repository permissions, or lack of
-branch permission for the provided ref name
-
-=back
-
-=cut
-
-sub create_branch {
-    my $self = shift;
-    my $args = {@_ == 1 ? %{$_[0]} : @_};
-    my $url  = _get_url('branch-utils/1.0/projects/{projectKey}/repos/{repositorySlug}/branches', $args);
-    my $data = (exists $args->{data} && $args->{data}) || (%$args && $args);
-    $self->context->call(method => 'POST', url => $url, $data ? (data => $data) : ());
 }
 
 =head2 find_branch_info_by_commit

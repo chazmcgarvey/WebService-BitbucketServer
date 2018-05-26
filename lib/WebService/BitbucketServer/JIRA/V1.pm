@@ -13,7 +13,7 @@ package WebService::BitbucketServer::JIRA::V1;
 
 =head1 DESCRIPTION
 
-This is a Bitbucket Server REST API for L<JIRA::V1|https://developer.atlassian.com/static/rest/bitbucket-server/5.5.0/bitbucket-jira-rest.html>.
+This is a Bitbucket Server REST API for L<JIRA::V1|https://developer.atlassian.com/static/rest/bitbucket-server/5.10.0/bitbucket-jira-rest.html>.
 
 Original API documentation created by and copyright Atlassian.
 
@@ -73,7 +73,7 @@ sub _get_path_parameter {
 
 =head2 create_issue
 
-Create a JIRA issue and associate it with a comment on a pull request.
+Create a Jira issue and associate it with a comment on a pull request.
 
 This resource can only be used with comments on a pull request. Attempting to
 call this resource with a different type of comment (for example, a comment on a
@@ -82,7 +82,7 @@ commit) will result in an error.
 The authenticated user must have B<<< REPO_READ >>> permission for the repository containing the comment
 to call this resource.
 
-The JSON structure for the create issue format is specified by JIRA's REST v2 API.
+The JSON structure for the create issue format is specified by Jira's REST v2 API.
 
     POST jira/1.0/comments/{commentId}/issues
 
@@ -92,7 +92,7 @@ Parameters:
 
 =item * C<<< applicationId >>> - string, default: none
 
-ID of the JIRA server
+ID of the Jira server
 
 =back
 
@@ -102,15 +102,15 @@ Responses:
 
 =item * C<<< 201 >>> - data, type: application/json
 
-The created JIRA issue key and the associated comment ID
+The created Jira issue key and the associated comment ID
 
 =item * C<<< 400 >>> - errors, type: application/json
 
-The specified application link ID does not match any linked JIRA instance.
+The specified application link ID does not match any linked Jira instance.
 
 =item * C<<< 401 >>> - errors, type: application/json
 
-Authentication with the JIRA instance is required.
+Authentication with the Jira instance is required.
 
 =back
 
@@ -166,7 +166,7 @@ sub get_commits {
 
 =head2 get_issue_keys_for_pull_request
 
-Retrieves JIRA issue keys that are associated with the commits in the specified pull request. The number of
+Retrieves Jira issue keys that are associated with the commits in the specified pull request. The number of
 commits checked for issues is limited to a default of 100.
 
     GET jira/1.0/projects/{projectKey}/repos/{repositorySlug}/pull-requests/{pullRequestId}/issues
@@ -185,7 +185,7 @@ Responses:
 
 =item * C<<< 200 >>> - issueKeys, type: application/json
 
-A list of JIRA issues keys for the pull request
+A list of Jira issues keys for the pull request
 
 =back
 

@@ -13,7 +13,7 @@ package WebService::BitbucketServer::SSH::V1;
 
 =head1 DESCRIPTION
 
-This is a Bitbucket Server REST API for L<SSH::V1|https://developer.atlassian.com/static/rest/bitbucket-server/5.5.0/bitbucket-ssh-rest.html>.
+This is a Bitbucket Server REST API for L<SSH::V1|https://developer.atlassian.com/static/rest/bitbucket-server/5.10.0/bitbucket-ssh-rest.html>.
 
 Original API documentation created by and copyright Atlassian.
 
@@ -69,6 +69,45 @@ sub _get_path_parameter {
     $name =~ s/([A-Z])/'_'.lc($1)/eg;
     return delete $args->{$name} if defined $args->{$name};
     _croak("Missing required parameter $name");
+}
+
+=head2 add_key_for_repository
+
+Register a new SSH key and grants access to the repository identified in the URL.
+
+    POST keys/1.0/projects/{projectKey}/repos/{repositorySlug}/ssh
+
+Responses:
+
+=over 4
+
+=item * C<<< 200 >>> - data, type: application/json
+
+The newly created access key
+
+=item * C<<< 400 >>> - errors, type: application/json
+
+The current request contains invalid or missing values.
+
+=item * C<<< 401 >>> - errors, type: application/json
+
+The currently authenticated user has insufficient permissions to add an access
+key to the repository
+
+=item * C<<< 404 >>> - errors, type: application/json
+
+The specified repository does not exist
+
+=back
+
+=cut
+
+sub add_key_for_repository {
+    my $self = shift;
+    my $args = {@_ == 1 ? %{$_[0]} : @_};
+    my $url  = _get_url('keys/1.0/projects/{projectKey}/repos/{repositorySlug}/ssh', $args);
+    my $data = (exists $args->{data} && $args->{data}) || (%$args && $args);
+    $self->context->call(method => 'POST', url => $url, $data ? (data => $data) : ());
 }
 
 =head2 get_keys_for_repository
@@ -127,45 +166,6 @@ sub get_keys_for_repository {
     my $url  = _get_url('keys/1.0/projects/{projectKey}/repos/{repositorySlug}/ssh', $args);
     my $data = (exists $args->{data} && $args->{data}) || (%$args && $args);
     $self->context->call(method => 'GET', url => $url, $data ? (data => $data) : ());
-}
-
-=head2 add_key_for_repository
-
-Register a new SSH key and grants access to the repository identified in the URL.
-
-    POST keys/1.0/projects/{projectKey}/repos/{repositorySlug}/ssh
-
-Responses:
-
-=over 4
-
-=item * C<<< 200 >>> - data, type: application/json
-
-The newly created access key
-
-=item * C<<< 400 >>> - errors, type: application/json
-
-The current request contains invalid or missing values.
-
-=item * C<<< 401 >>> - errors, type: application/json
-
-The currently authenticated user has insufficient permissions to add an access
-key to the repository
-
-=item * C<<< 404 >>> - errors, type: application/json
-
-The specified repository does not exist
-
-=back
-
-=cut
-
-sub add_key_for_repository {
-    my $self = shift;
-    my $args = {@_ == 1 ? %{$_[0]} : @_};
-    my $url  = _get_url('keys/1.0/projects/{projectKey}/repos/{repositorySlug}/ssh', $args);
-    my $data = (exists $args->{data} && $args->{data}) || (%$args && $args);
-    $self->context->call(method => 'POST', url => $url, $data ? (data => $data) : ());
 }
 
 =head2 get_key_for_repository
@@ -305,6 +305,45 @@ sub update_permission_for_repository {
     $self->context->call(method => 'PUT', url => $url, $data ? (data => $data) : ());
 }
 
+=head2 add_key_for_project
+
+Register a new SSH key and grants access to the project identified in the URL.
+
+    POST keys/1.0/projects/{projectKey}/ssh
+
+Responses:
+
+=over 4
+
+=item * C<<< 200 >>> - data, type: application/json
+
+The newly created access key
+
+=item * C<<< 400 >>> - errors, type: application/json
+
+The current request contains invalid or missing values.
+
+=item * C<<< 401 >>> - errors, type: application/json
+
+The currently authenticated user has insufficient permissions to add an access
+key to the project.
+
+=item * C<<< 404 >>> - errors, type: application/json
+
+The specified project does not exist
+
+=back
+
+=cut
+
+sub add_key_for_project {
+    my $self = shift;
+    my $args = {@_ == 1 ? %{$_[0]} : @_};
+    my $url  = _get_url('keys/1.0/projects/{projectKey}/ssh', $args);
+    my $data = (exists $args->{data} && $args->{data}) || (%$args && $args);
+    $self->context->call(method => 'POST', url => $url, $data ? (data => $data) : ());
+}
+
 =head2 get_keys_for_project
 
 Retrieves the access keys for the project identified in the URL.
@@ -353,45 +392,6 @@ sub get_keys_for_project {
     my $url  = _get_url('keys/1.0/projects/{projectKey}/ssh', $args);
     my $data = (exists $args->{data} && $args->{data}) || (%$args && $args);
     $self->context->call(method => 'GET', url => $url, $data ? (data => $data) : ());
-}
-
-=head2 add_key_for_project
-
-Register a new SSH key and grants access to the project identified in the URL.
-
-    POST keys/1.0/projects/{projectKey}/ssh
-
-Responses:
-
-=over 4
-
-=item * C<<< 200 >>> - data, type: application/json
-
-The newly created access key
-
-=item * C<<< 400 >>> - errors, type: application/json
-
-The current request contains invalid or missing values.
-
-=item * C<<< 401 >>> - errors, type: application/json
-
-The currently authenticated user has insufficient permissions to add an access
-key to the project.
-
-=item * C<<< 404 >>> - errors, type: application/json
-
-The specified project does not exist
-
-=back
-
-=cut
-
-sub add_key_for_project {
-    my $self = shift;
-    my $args = {@_ == 1 ? %{$_[0]} : @_};
-    my $url  = _get_url('keys/1.0/projects/{projectKey}/ssh', $args);
-    my $data = (exists $args->{data} && $args->{data}) || (%$args && $args);
-    $self->context->call(method => 'POST', url => $url, $data ? (data => $data) : ());
 }
 
 =head2 get_key_for_project
@@ -706,6 +706,54 @@ sub get_ssh_keys {
     $self->context->call(method => 'GET', url => $url, $data ? (data => $data) : ());
 }
 
+=head2 delete_ssh_keys
+
+Delete all ssh keys for a supplied user.
+
+    DELETE ssh/1.0/keys
+
+Parameters:
+
+=over 4
+
+=item * C<<< user >>> - string, default: none
+
+the username of the user to delete the keys for.
+If no username is specified, the ssh keys will
+be deleted for the current authenticated user.
+
+=back
+
+Responses:
+
+=over 4
+
+=item * C<<< 401 >>> - errors, type: application/json
+
+The currently authenticated user has insufficient permissions
+to delete the ssh keys. This is only possible when a
+B<<< user >>> is explicitly supplied.
+
+=item * C<<< 204 >>> - data, type: unknown
+
+The ssh keys matching the supplied B<<< user >>> were deleted.
+
+=item * C<<< 404 >>> - errors, type: application/json
+
+No user matches the supplied B<<< user >>>
+
+=back
+
+=cut
+
+sub delete_ssh_keys {
+    my $self = shift;
+    my $args = {@_ == 1 ? %{$_[0]} : @_};
+    my $url  = _get_url('ssh/1.0/keys', $args);
+    my $data = (exists $args->{data} && $args->{data}) || (%$args && $args);
+    $self->context->call(method => 'DELETE', url => $url, $data ? (data => $data) : ());
+}
+
 =head2 add_ssh_key
 
 Add a new ssh key to a supplied user.
@@ -761,54 +809,6 @@ sub add_ssh_key {
     my $url  = _get_url('ssh/1.0/keys', $args);
     my $data = (exists $args->{data} && $args->{data}) || (%$args && $args);
     $self->context->call(method => 'POST', url => $url, $data ? (data => $data) : ());
-}
-
-=head2 delete_ssh_keys
-
-Delete all ssh keys for a supplied user.
-
-    DELETE ssh/1.0/keys
-
-Parameters:
-
-=over 4
-
-=item * C<<< user >>> - string, default: none
-
-the username of the user to delete the keys for.
-If no username is specified, the ssh keys will
-be deleted for the current authenticated user.
-
-=back
-
-Responses:
-
-=over 4
-
-=item * C<<< 401 >>> - errors, type: application/json
-
-The currently authenticated user has insufficient permissions
-to delete the ssh keys. This is only possible when a
-B<<< user >>> is explicitly supplied.
-
-=item * C<<< 204 >>> - data, type: unknown
-
-The ssh keys matching the supplied B<<< user >>> were deleted.
-
-=item * C<<< 404 >>> - errors, type: application/json
-
-No user matches the supplied B<<< user >>>
-
-=back
-
-=cut
-
-sub delete_ssh_keys {
-    my $self = shift;
-    my $args = {@_ == 1 ? %{$_[0]} : @_};
-    my $url  = _get_url('ssh/1.0/keys', $args);
-    my $data = (exists $args->{data} && $args->{data}) || (%$args && $args);
-    $self->context->call(method => 'DELETE', url => $url, $data ? (data => $data) : ());
 }
 
 =head2 delete_ssh_key

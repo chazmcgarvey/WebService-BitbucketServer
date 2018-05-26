@@ -13,7 +13,7 @@ package WebService::BitbucketServer::DefaultReviewers::V1;
 
 =head1 DESCRIPTION
 
-This is a Bitbucket Server REST API for L<DefaultReviewers::V1|https://developer.atlassian.com/static/rest/bitbucket-server/5.5.0/bitbucket-default-reviewers-rest.html>.
+This is a Bitbucket Server REST API for L<DefaultReviewers::V1|https://developer.atlassian.com/static/rest/bitbucket-server/5.10.0/bitbucket-default-reviewers-rest.html>.
 
 Original API documentation created by and copyright Atlassian.
 
