@@ -532,6 +532,9 @@ sub _html_to_pod {
     $text =~ s!\{\@code ([^}]+)\}!C<<< $1 >>>!ig;
     $text =~ s!\{\@link (?:[A-Za-z0-9#]+)(?:\([^)]*\))? ([^}]+)\}!$1!ig;
 
+    # remove trailing whitespace:
+    $text =~ s!\h+\n!\n!sg;
+
     return $text;
 }
 
