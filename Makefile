@@ -3,15 +3,14 @@
 
 CPANM   = cpanm
 DZIL    = dzil
-PERL    = perl
 PROVE   = prove
 
 all: bootstrap dist
 
 bootstrap:
 	$(CPANM) Dist::Zilla
-	$(DZIL) authordeps --missing | $(CPANM)
-	$(DZIL) listdeps --develop --missing | $(CPANM)
+	$(DZIL) authordeps --missing |$(CPANM) -n
+	$(DZIL) listdeps --develop --missing |$(CPANM) -n
 
 clean:
 	$(DZIL) $@
