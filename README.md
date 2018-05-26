@@ -4,7 +4,7 @@ WebService::BitbucketServer - Bindings for Bitbucket Server REST APIs
 
 # VERSION
 
-version 0.603
+version 0.604
 
 # SYNOPSIS
 
@@ -197,7 +197,7 @@ Camspi <amarus18@hotmail.com>
 
 # COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2017 by Charles McGarvey.
+This software is copyright (c) 2018 by Charles McGarvey.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
