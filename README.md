@@ -4,7 +4,7 @@ WebService::BitbucketServer - Bindings for Bitbucket Server REST APIs
 
 # VERSION
 
-version 0.604
+version 0.605
 
 # SYNOPSIS
 
@@ -60,7 +60,7 @@ Get the username of the user for authenticating.
 
 ## password
 
-Get the password of the user for authenticating.
+Get the password (or personal access token) of the user for authenticating.
 
 ## ua
 
@@ -77,7 +77,7 @@ Get the [HTTP::AnyUA](https://metacpan.org/pod/HTTP::AnyUA) object.
 
 ## json
 
-Get the [JSON](https://metacpan.org/pod/JSON) (or compatible) object used for encoding and decoding documents.
+Get the [JSON::XS](https://metacpan.org/pod/JSON::XS) (or compatible) object used for encoding and decoding documents.
 
 ## no\_security\_warning
 
