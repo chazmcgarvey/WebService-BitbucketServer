@@ -498,8 +498,8 @@ sub _format_preformatted {
     my $text = shift;
 
     my $formatted = eval {
-        require JSON;
-        my $json = JSON->new->canonical->utf8->pretty;
+        require JSON::MaybeXS;
+        my $json = JSON::MaybeXS->new(canonical => 1, pretty => 1, utf8 => 1);
         $json->encode($json->decode($text));
     } || $text;
 

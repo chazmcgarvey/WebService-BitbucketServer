@@ -141,7 +141,7 @@ sub _build_decoded_content {
 
 =attr json
 
-Get the L<JSON> (or compatible) object used for encoding and decoding documents.
+Get the L<JSON::XS> (or compatible) object used for encoding and decoding documents.
 
 =cut
 
@@ -150,8 +150,8 @@ has json => (
     isa     => Object,
     default => sub {
         shift->context->json || do {
-            require JSON;
-            JSON->new->utf8(1);
+            require JSON::MaybeXS;
+            JSON::MaybeXS->new(utf8 => 1);
         };
     },
 );

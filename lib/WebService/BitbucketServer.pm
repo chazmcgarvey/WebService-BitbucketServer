@@ -145,7 +145,7 @@ has any_ua => (
 
 =attr json
 
-Get the L<JSON> (or compatible) object used for encoding and decoding documents.
+Get the L<JSON::XS> (or compatible) object used for encoding and decoding documents.
 
 =cut
 
@@ -153,8 +153,8 @@ has json => (
     is      => 'lazy',
     isa     => Object,
     default => sub {
-        load JSON;
-        JSON->new->utf8(1);
+        load JSON::MaybeXS;
+        JSON::MaybeXS->new(utf8 => 1);
     },
 );
 
