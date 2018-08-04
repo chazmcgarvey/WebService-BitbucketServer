@@ -39,8 +39,6 @@ package WebService::BitbucketServer;
 
 This is the main module for the Bitbucket Server API bindings for Perl.
 
-
-
 =cut
 
 use warnings;
@@ -100,7 +98,7 @@ Get the username of the user for authenticating.
 
 =attr password
 
-Get the password of the user for authenticating.
+Get the password (or personal access token) of the user for authenticating.
 
 =cut
 
