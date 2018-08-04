@@ -120,7 +120,7 @@ has raw => (
 =attr decoded_content
 
 Get the decoded response content which may include page info if this is a paged response. Consider
-using L</data>, L</page_data>, etc. before this.
+using L</data>, L</page_info>, etc. before this.
 
 =cut
 
@@ -186,14 +186,12 @@ sub error {
 
 =method data
 
-=method info
-
-=method value
-
-=method values
-
 Get the decoded response content. If this is a paged response (see L</is_paged>), this will be an
 arrayref of values.
+
+Aliases: C<info>, C<value>, C<values>
+
+=for Pod::Coverage info|value|values
 
 =cut
 

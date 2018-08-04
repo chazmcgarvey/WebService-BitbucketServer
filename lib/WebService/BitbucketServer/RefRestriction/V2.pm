@@ -202,6 +202,7 @@ See the Branch REST API for more information.
 =item *
 
 Type: Set and be one of
+
 =over 4
 
 =item *
@@ -219,6 +220,8 @@ Type: Set and be one of
 =item *
 
 'read-only'
+
+=back
 
 =back
 
@@ -467,6 +470,7 @@ See the Branch REST API for more information.
 =item *
 
 Type: Set and be one of
+
 =over 4
 
 =item *
@@ -484,6 +488,8 @@ Type: Set and be one of
 =item *
 
 'read-only'
+
+=back
 
 =back
 
